@@ -1,4 +1,4 @@
-package tictactoe;
+package tictactoe.GameMechanics;
 
 import java.util.EnumMap;
 import java.util.Map;

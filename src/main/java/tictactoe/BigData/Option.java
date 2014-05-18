@@ -1,7 +1,7 @@
 package tictactoe.BigData;
 
-import tictactoe.Board;
-import tictactoe.Player;
+import tictactoe.GameMechanics.Board;
+import tictactoe.GameMechanics.Player;
 
 public class Option {
     private Board board;
@@ -26,6 +26,6 @@ public class Option {
 
     @Override
     public String toString() {
-        return "option of moving to board " + board.toString() + " has results " + resultStats.toString();
+        return board.toString() + " produces " + resultStats.toString();
     }
 }

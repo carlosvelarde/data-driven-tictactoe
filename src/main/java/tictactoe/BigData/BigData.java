@@ -1,8 +1,8 @@
 package tictactoe.BigData;
 
-import tictactoe.Board;
-import tictactoe.BoardHistory;
-import tictactoe.Player;
+import tictactoe.GameMechanics.Board;
+import tictactoe.GameMechanics.BoardHistory;
+import tictactoe.GameMechanics.Player;
 
 import java.util.*;
 
@@ -65,10 +65,10 @@ public class BigData {
         TreeSet<Board> sortedBoardsInBigData = new TreeSet<Board>(unsortedBoardsInBigData);
 
         for (Board boardInBigData : sortedBoardsInBigData) {
-            output += "Board that we have option data for: " + boardInBigData.toString() + "\n";
+            output += "from " + boardInBigData.toString() + "\n";
             Set<Option> optionsForThisBoard = data.get(boardInBigData);
             for (Option option : optionsForThisBoard) {
-                output += "  " + option.toString();
+                output += "  to " + option.toString();
                 output += "\n";
             }
         }

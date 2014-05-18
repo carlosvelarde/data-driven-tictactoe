@@ -1,6 +1,6 @@
 package tictactoe.BigData;
 
-import tictactoe.Player;
+import tictactoe.GameMechanics.Player;
 
 public class ResultStats {
     private long xWins;
@@ -31,6 +31,6 @@ public class ResultStats {
 
     @Override
     public String toString() {
-        return "xWins: " + xWins + ", oWins: " + oWins + ", ties: " + ties;
+        return xWins + ", " + oWins + ", " + ties;
     }
 }

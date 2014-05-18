@@ -1,11 +1,12 @@
-package tictactoe;
+package tictactoe.GameMechanics;
 
 import tictactoe.BigData.BigData;
+import tictactoe.Config;
 
 public class Main {
     public static void main(String[] args) {
         BigData bigData = new BigData();
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < Config.NUM_GAMES; i++) {
             new Main().playTicTacToe(bigData);
         }
         System.out.println(bigData);
@@ -28,7 +29,6 @@ public class Main {
         } while (true);
 
         Player winner = boardStatus.getWinner();
-//        System.out.println("winner: " + winner);
         bigData.addResult(boardHistory, winner);
     }
 
@@ -53,9 +53,5 @@ public class Main {
         boardStatus.setIsFull(boardIsFull);
 
         return boardStatus;
-    }
-
-    private void addToBigData(BoardHistory boardHistory, Player winner) {
-
     }
 }
