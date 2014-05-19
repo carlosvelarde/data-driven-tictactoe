@@ -8,10 +8,11 @@ import java.util.Set;
 
 import static tictactoe.Config.PRINT_GAMES;
 import static tictactoe.GameMechanics.Mode.COMPETE;
+import static tictactoe.GameMechanics.Mode.LEARN;
 
 public class Controller {
 
-    void learnTicTacToe(BigData bigData) {
+    public void learnTicTacToe(BigData bigData) {
         BoardHistory boardHistory = new BoardHistory();
         BoardStatus boardStatus;
         Player player = Player.getRandomPlayer();
@@ -29,7 +30,7 @@ public class Controller {
         bigData.addResult(boardHistory, winner);
     }
 
-    void playTicTacToe(BigData bigData, ResultStats resultStats) {
+    public void playTicTacToe(BigData bigData, ResultStats resultStats) {
         BoardHistory boardHistory = new BoardHistory();
         BoardStatus boardStatus;
         Player player = Player.getRandomPlayer();
@@ -65,27 +66,40 @@ public class Controller {
      * For now, BigData only gives guidance to Player X.
      */
     private Position askBigDataWhatToDo(BigData bigData, Board currentBoard) {
-        Set<Option> options = bigData.data.get(currentBoard);
-        Board bestNextBoard;
-        float bestGoodness;
-        for (Option option : options) {
-            ResultStats resultStats = option.getResultStats();
-            float goodnessForThisOption = resultStats.getGoodness(Player.X);
-            if (goodnessForThisOption > bestGoodness) {
-                bestNextBoard = option.getBoard();
+        Set<Option> options = bigData.getOptionsForBoard(currentBoard);
+        Position bestNextPosition = null;
+        Board bestNextBoard = null;
+        float bestGoodness = 0F;
+
+        if (options != null) {
+            for (Option option : options) {
+                ResultStats resultStats = option.getResultStats();
+                float goodnessForThisOption = resultStats.getGoodness(Player.X);
+                if (goodnessForThisOption > bestGoodness) {
+                    bestNextBoard = option.getBoard();
+                }
+            }
+            if (bestNextBoard != null) {
+                bestNextPosition = findDeltaBetweenBoards(currentBoard, bestNextBoard);
             }
         }
-        return findDeltaBetweenBoards(board, bestNextBoard);
+
+        return bestNextPosition;
     }
 
-    private Board findDeltaBetweenBoards(Board earlierBoard, Board laterBoard) {
-        Position[] positions = Position.all();
+    private Position findDeltaBetweenBoards(Board earlierBoard, Board laterBoard) {
+        Position[] positions = Position.values();
+        Position changedPosition = null;
+        for (Position position : positions) {
+            Player playerOnEarlierBoard = earlierBoard.getPlayerAtPosition(position);
+            Player playerOnLaterBoard = laterBoard.getPlayerAtPosition(position);
+            if (! playerOnEarlierBoard.equals(playerOnLaterBoard)) {
+                changedPosition = position;
+                break;
+            }
+        }
+        return changedPosition;
     }
-
-    private boolean didPlayerMoveHere(Board earlierBoard, Board laterBoard, Position position) {
-
-    }
-
 
     private BoardStatus evaluateBoard(BoardHistory boardHistory) {
         Board currentBoard = boardHistory.getCurrentBoard();

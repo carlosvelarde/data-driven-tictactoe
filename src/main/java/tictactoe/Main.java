@@ -1,7 +1,8 @@
-package tictactoe.GameMechanics;
+package tictactoe;
 
 import tictactoe.BigData.BigData;
 import tictactoe.BigData.ResultStats;
+import tictactoe.GameMechanics.Controller;
 
 import static tictactoe.Config.*;
 
@@ -21,8 +22,5 @@ public class Main {
             controller.playTicTacToe(bigData, resultStats);
         }
         System.out.println(resultStats.generateCompetitionStats());
-
-
-
     }
 }

@@ -27,6 +27,10 @@ public class BigData {
         }
     }
 
+    public Set<Option> getOptionsForBoard(Board board) {
+        return data.get(board);
+    }
+
     private void processBoard(Board board, Board boardThatCameNext, Player winner) {
         boolean boardAlreadyExists = data.containsKey(board);
         if (boardAlreadyExists) {
