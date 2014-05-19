@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BoardHistory {
+
     private List<Board> boards = new ArrayList<Board>();
 
     /**
@@ -32,6 +33,7 @@ public class BoardHistory {
 
     public void printCurrentBoard() {
         Board currentBoard = getCurrentBoard();
-        System.out.println(currentBoard);
+        String prettyPrintedString = currentBoard.toPrettyString();
+        System.out.println(prettyPrintedString + "\n");
     }
 }
