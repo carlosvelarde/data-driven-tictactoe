@@ -6,10 +6,9 @@ import java.util.Map;
 public class Board implements Comparable{
 
     public static final String COLUMN_SEPARATOR = " ";
-    public static final String PRETTY_COLUMN_SEPARATOR = " ";
+    public static final String PRETTY_COLUMN_SEPARATOR = " | ";
     public static final String PRETTY_ROW_SEPARATOR = "\n";
 
-//    Map<Position, Player> squares = new HashMap<Position, Player>(); // where each x and o lives
     Map<Position, Player> squares = new EnumMap<Position, Player>(Position.class); // where each x and o lives
 
     /**
