@@ -22,9 +22,9 @@ public class ResultStats {
 
     public float getGoodness(Player player) {
         if (player == Player.X) {
-            return (float)xWins / Config.NUM_TRAINING_GAMES;
+            return (float)xWins / (oWins + ties);
         } else if (player == Player.O) {
-            return (float)oWins / Config.NUM_TRAINING_GAMES;
+            return (float)oWins / (xWins + ties);
         } else {
             return -1;
         }

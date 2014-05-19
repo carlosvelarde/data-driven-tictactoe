@@ -53,7 +53,7 @@ public class Controller {
         boolean useBigDataToMakeSmartMove = (mode == COMPETE && player == Player.X);
         Position position;
         if (useBigDataToMakeSmartMove) {
-            position = askBigDataWhatToDo(bigData, currentBoard);
+            position = getAdviceFromBigData(bigData, currentBoard, player);
         } else {
             position = Position.getRandomEmptyPosition(currentBoard);
         }
@@ -62,10 +62,7 @@ public class Controller {
         return boardHistory;
     }
 
-    /**
-     * For now, BigData only gives guidance to Player X.
-     */
-    private Position askBigDataWhatToDo(BigData bigData, Board currentBoard) {
+    private Position getAdviceFromBigData(BigData bigData, Board currentBoard, Player player) {
         Set<Option> options = bigData.getOptionsForBoard(currentBoard);
         Position bestNextPosition = null;
         Board bestNextBoard = null;
@@ -77,10 +74,13 @@ public class Controller {
                 float goodnessForThisOption = resultStats.getGoodness(Player.X);
                 if (goodnessForThisOption > bestGoodness) {
                     bestNextBoard = option.getBoard();
+                    Position deltaPosition = findDeltaBetweenBoards(currentBoard, bestNextBoard);
+                    Player playerWhoMoved = bestNextBoard.getPlayerAtPosition(deltaPosition);
+                    if (playerWhoMoved.equals(player)) {
+                        bestNextPosition = deltaPosition;
+                        bestGoodness = goodnessForThisOption;
+                    }
                 }
-            }
-            if (bestNextBoard != null) {
-                bestNextPosition = findDeltaBetweenBoards(currentBoard, bestNextBoard);
             }
         }
 
