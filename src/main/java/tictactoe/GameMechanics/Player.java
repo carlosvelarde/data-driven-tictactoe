@@ -8,6 +8,7 @@ public enum Player {
     Neither("_");
 
     private String displayString;
+
     /* initialize Random once as a static field to avoid super fast execution
        resulting in the same millisecond value used for several seeds. */
     private static Random rand = new Random(System.currentTimeMillis());

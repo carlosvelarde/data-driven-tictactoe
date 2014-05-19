@@ -1,3 +1,4 @@
 * add some unit tests
 * doc like crazy
 * fix visibility keywords
+* format with IntelliJ's default standards

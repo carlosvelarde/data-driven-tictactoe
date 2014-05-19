@@ -1,12 +1,13 @@
 package tictactoe.GameMechanics;
 
 import tictactoe.BigData.BigData;
+import tictactoe.BigData.ResultStats;
 
 import static tictactoe.Config.PRINT_GAMES;
 
 public class Controller {
 
-    void playTicTacToe(BigData bigData) {
+    void learnTicTacToe(BigData bigData) {
         BoardHistory boardHistory = new BoardHistory();
         BoardStatus boardStatus;
         Player player = Player.getRandomPlayer();
@@ -22,6 +23,24 @@ public class Controller {
         Player winner = boardStatus.getWinner();
         if (PRINT_GAMES) System.out.println(winner + " wins\n");
         bigData.addResult(boardHistory, winner);
+    }
+
+    void playTicTacToe(BigData bigData, ResultStats resultStats) {
+        BoardHistory boardHistory = new BoardHistory();
+        BoardStatus boardStatus;
+        Player player = Player.getRandomPlayer();
+
+        do {
+            boardHistory = takeTurn(player, boardHistory);
+            boardStatus = evaluateBoard(boardHistory);
+            if (PRINT_GAMES) boardHistory.printCurrentBoard();
+            if (boardStatus.isGameOver()) break;
+            player = Player.getOtherPlayer(player);
+        } while (true);
+
+        Player winner = boardStatus.getWinner();
+        resultStats.registerWinner(winner);
+        if (PRINT_GAMES) System.out.println(winner + " wins\n");
     }
 
     private BoardHistory takeTurn(Player player, BoardHistory boardHistory) {
