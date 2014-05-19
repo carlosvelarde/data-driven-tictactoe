@@ -1,4 +1,3 @@
-* randomize who goes first
-* add training flag
 * add some unit tests
 * doc like crazy
+* fix visibility keywords
