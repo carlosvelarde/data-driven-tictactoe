@@ -1,6 +1,7 @@
 package tictactoe.GameMechanics;
 
 public class BoardStatus {
+
     Player winner;
     boolean boardIsFull;
 
