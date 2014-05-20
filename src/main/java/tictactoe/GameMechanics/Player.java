@@ -13,7 +13,7 @@ public enum Player {
        resulting in the same millisecond value used for several seeds. */
     private static Random rand = new Random(System.currentTimeMillis());
 
-    Player(String displayString) {
+    private Player(String displayString) {
         this.displayString = displayString;
     }
 
@@ -22,15 +22,10 @@ public enum Player {
     }
 
     public static Player getRandomPlayer() {
-        boolean playerIsX = rand.nextBoolean();
-        return playerIsX ? Player.X : Player.O;
+        return rand.nextBoolean() ? Player.X : Player.O;
     }
 
-    public static Player getOtherPlayer(Player player1) {
-        if(player1.equals(Player.X)) {
-            return Player.O;
-        } else {
-            return Player.X;
-        }
+    public static Player getOtherPlayer(Player player) {
+        return player.equals(Player.X) ? Player.O : Player.X;
     }
 }

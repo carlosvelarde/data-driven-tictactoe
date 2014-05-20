@@ -1,9 +1,9 @@
 package tictactoe.GameMechanics;
 
-public class BoardStatus {
+class BoardStatus {
 
-    Player winner;
-    boolean boardIsFull;
+    private Player winner;
+    private boolean boardIsFull;
 
     public BoardStatus() {
         winner = Player.Neither;

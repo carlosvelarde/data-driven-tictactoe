@@ -6,15 +6,15 @@ import java.util.Random;
 
 public class Board implements Comparable{
 
-    public static final String COLUMN_SEPARATOR = " ";
-    public static final String PRETTY_COLUMN_SEPARATOR = " | ";
-    public static final String PRETTY_ROW_SEPARATOR = "\n";
+    private static final String COLUMN_SEPARATOR = " ";
+    private static final String PRETTY_COLUMN_SEPARATOR = " | ";
+    private static final String PRETTY_ROW_SEPARATOR = "\n";
 
     /* initialize Random once as a static field to avoid super fast execution
        resulting in the same millisecond value used for several seeds. */
     private static Random rand = new Random(System.currentTimeMillis());
 
-    Map<Position, Player> squares = new EnumMap<Position, Player>(Position.class); // where each x and o lives
+    private Map<Position, Player> squares = new EnumMap<Position, Player>(Position.class); // where each x and o lives
 
     /**
      * Ctor for first board of game
@@ -126,14 +126,12 @@ public class Board implements Comparable{
             Position randomPosition = allPositions[randomPositionIndex];
             playerAtRandomPosition = getPlayerAtPosition(randomPosition);
         } while (playerAtRandomPosition != Player.Neither);
-
         return allPositions[randomPositionIndex];
     }
 
     @Override
     public boolean equals(Object o) {
-        if (o == null) return false;
-        return this.toString().equals(o.toString());
+        return (o != null) && this.toString().equals(o.toString());
     }
 
     @Override
@@ -145,7 +143,7 @@ public class Board implements Comparable{
     public int compareTo(Object o) {
         if (! (o instanceof Board)) return 0;
         String thisAsString = this.toString();
-        String otherBoardAsString = ((Board)o).toString();
+        String otherBoardAsString = o.toString();
 //        return (otherBoardAsString.compareTo(thisAsString)); // most common boards on top
         return (thisAsString.compareTo(otherBoardAsString)); // most common boards on bottom
     }

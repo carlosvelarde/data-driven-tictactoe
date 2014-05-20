@@ -25,7 +25,7 @@ public class WinLossStats {
         } else if (player == Player.O) {
             return (float)oWins / (xWins + ties);
         } else {
-            return -1;
+            return -1F;
         }
     }
 

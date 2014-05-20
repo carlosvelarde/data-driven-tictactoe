@@ -8,7 +8,7 @@ import java.util.*;
 
 public class BigData {
 
-    Map<Board, Set<Option>> data;
+    private Map<Board, Set<Option>> data;
 
     public BigData() {
         data = new HashMap<>();
@@ -66,7 +66,7 @@ public class BigData {
     public String toString() {
         String output = "";
         Set<Board> unsortedBoardsInBigData = data.keySet();
-        TreeSet<Board> sortedBoardsInBigData = new TreeSet<Board>(unsortedBoardsInBigData);
+        TreeSet<Board> sortedBoardsInBigData = new TreeSet<>(unsortedBoardsInBigData);
 
         for (Board boardInBigData : sortedBoardsInBigData) {
             output += "from " + boardInBigData.toString() + "\n";
