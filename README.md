@@ -38,11 +38,13 @@ notes
   or any other metric.
 * My design philosophy is heavily influenced by Robert C. Martin's book *Clean Code*. I'm not as 
   clean as I want to be yet (there's a lot in his book to absorb), but I'm getting closer with 
-  each project. Probably the two most important concepts he preaches are:
+  each project. Probably the three most important concepts he preaches are:
     * Methods should operate on only one level of abstraction, and should call other methods whenever
       they need to move to a different level of abstraction.
     * Classes, methods, and variables should have names that actually describe what they do, even if
       they get a little long or unwieldy.
+    * Do only one thing per line. It makes your program longer, but it's easier to understand and way
+      easier to debug.
 * My documentation philosophy:
     * Full Javadoc is not a good use of a developer's time and massively increases maintenance effort
       (to combat doc vs. code drift) down the road.
