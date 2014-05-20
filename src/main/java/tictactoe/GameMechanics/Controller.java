@@ -2,7 +2,7 @@ package tictactoe.GameMechanics;
 
 import tictactoe.BigData.BigData;
 import tictactoe.BigData.Option;
-import tictactoe.BigData.ResultStats;
+import tictactoe.BigData.WinLossStats;
 
 import java.util.Set;
 
@@ -12,7 +12,7 @@ import static tictactoe.GameMechanics.Mode.LEARN;
 
 public class Controller {
 
-    public void learnTicTacToe(BigData bigData) {
+    public void learnTicTacToe(BigData bigData, WinLossStats winLossStats) {
         BoardHistory boardHistory = new BoardHistory();
         BoardStatus boardStatus;
         Player player = Player.getRandomPlayer();
@@ -26,11 +26,12 @@ public class Controller {
         } while (true);
 
         Player winner = boardStatus.getWinner();
+        winLossStats.registerWinner(winner);
         if (PRINT_GAMES) System.out.println(winner + " wins\n");
         bigData.addResult(boardHistory, winner);
     }
 
-    public void playTicTacToe(BigData bigData, ResultStats resultStats) {
+    public void playTicTacToe(BigData bigData, WinLossStats winLossStats) {
         BoardHistory boardHistory = new BoardHistory();
         BoardStatus boardStatus;
         Player player = Player.getRandomPlayer();
@@ -44,7 +45,7 @@ public class Controller {
         } while (true);
 
         Player winner = boardStatus.getWinner();
-        resultStats.registerWinner(winner);
+        winLossStats.registerWinner(winner);
         if (PRINT_GAMES) System.out.println(winner + " wins\n");
     }
 
@@ -70,8 +71,8 @@ public class Controller {
 
         if (options != null) {
             for (Option option : options) {
-                ResultStats resultStats = option.getResultStats();
-                float goodnessForThisOption = resultStats.getGoodness(Player.X);
+                WinLossStats winLossStats = option.getWinLossStats();
+                float goodnessForThisOption = winLossStats.getGoodness(Player.X);
                 if (goodnessForThisOption > bestGoodness) {
                     bestNextBoard = option.getBoard();
                     Position deltaPosition = findDeltaBetweenBoards(currentBoard, bestNextBoard);
@@ -82,6 +83,10 @@ public class Controller {
                     }
                 }
             }
+        }
+
+        if (bestNextPosition == null) {
+            bestNextPosition = Position.getRandomEmptyPosition(currentBoard);
         }
 
         return bestNextPosition;

@@ -3,12 +3,12 @@ package tictactoe.BigData;
 import tictactoe.Config;
 import tictactoe.GameMechanics.Player;
 
-public class ResultStats {
+public class WinLossStats {
     private long xWins;
     private long oWins;
     private long ties;
 
-    public ResultStats() {
+    public WinLossStats() {
         xWins = 0;
         oWins = 0;
         ties = 0;
@@ -30,7 +30,7 @@ public class ResultStats {
         }
     }
 
-    public String generateCompetitionStats() {
+    public String getWinPercentages() {
         float xWinPercentage = calculatePercentageOfTotalGames(xWins);
         float oWinPercentage = calculatePercentageOfTotalGames(oWins);
         float tiePercentage = calculatePercentageOfTotalGames(ties);

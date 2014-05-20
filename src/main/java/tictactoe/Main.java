@@ -1,7 +1,7 @@
 package tictactoe;
 
 import tictactoe.BigData.BigData;
-import tictactoe.BigData.ResultStats;
+import tictactoe.BigData.WinLossStats;
 import tictactoe.GameMechanics.Controller;
 
 import static tictactoe.Config.*;
@@ -12,15 +12,17 @@ public class Main {
         BigData bigData = new BigData();
         Controller controller = new Controller();
 
+        WinLossStats learningStats = new WinLossStats();
         for (int i = 0; i < NUM_TRAINING_GAMES; i++) {
-            controller.learnTicTacToe(bigData);
+            controller.learnTicTacToe(bigData, learningStats);
         }
         if (PRINT_BIG_DATA) System.out.println(bigData);
+        System.out.println(learningStats);
 
-        ResultStats resultStats = new ResultStats();
+        WinLossStats competitionStats = new WinLossStats();
         for (int i = 0; i < NUM_COMPETITION_GAMES; i++) {
-            controller.playTicTacToe(bigData, resultStats);
+            controller.playTicTacToe(bigData, competitionStats);
         }
-        System.out.println(resultStats.generateCompetitionStats());
+        System.out.println(competitionStats.getWinPercentages());
     }
 }
