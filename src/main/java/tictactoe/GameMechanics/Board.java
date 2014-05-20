@@ -2,12 +2,17 @@ package tictactoe.GameMechanics;
 
 import java.util.EnumMap;
 import java.util.Map;
+import java.util.Random;
 
 public class Board implements Comparable{
 
     public static final String COLUMN_SEPARATOR = " ";
     public static final String PRETTY_COLUMN_SEPARATOR = " | ";
     public static final String PRETTY_ROW_SEPARATOR = "\n";
+
+    /* initialize Random once as a static field to avoid super fast execution
+       resulting in the same millisecond value used for several seeds. */
+    private static Random rand = new Random(System.currentTimeMillis());
 
     Map<Position, Player> squares = new EnumMap<Position, Player>(Position.class); // where each x and o lives
 
@@ -109,6 +114,20 @@ public class Board implements Comparable{
         Player player3 = squares.get(position3);
         boolean playersMatch = (player1 == player2 && player2 == player3);
         return playersMatch ? player1 : Player.Neither;
+    }
+
+    public Position getRandomEmptyPosition() {
+        Position[] allPositions = Position.values();
+        int numPositions = allPositions.length;
+        int randomPositionIndex;
+        Player playerAtRandomPosition;
+        do {
+            randomPositionIndex = rand.nextInt(numPositions);
+            Position randomPosition = allPositions[randomPositionIndex];
+            playerAtRandomPosition = getPlayerAtPosition(randomPosition);
+        } while (playerAtRandomPosition != Player.Neither);
+
+        return allPositions[randomPositionIndex];
     }
 
     @Override

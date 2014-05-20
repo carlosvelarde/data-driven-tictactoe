@@ -1,5 +1,5 @@
 package tictactoe.GameMechanics;
 
-public enum Mode {
+public enum Phase {
     LEARN, COMPETE;
 }

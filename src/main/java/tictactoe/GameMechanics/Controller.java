@@ -7,8 +7,8 @@ import tictactoe.BigData.WinLossStats;
 import java.util.Set;
 
 import static tictactoe.Config.PRINT_GAMES;
-import static tictactoe.GameMechanics.Mode.COMPETE;
-import static tictactoe.GameMechanics.Mode.LEARN;
+import static tictactoe.GameMechanics.Phase.COMPETE;
+import static tictactoe.GameMechanics.Phase.LEARN;
 
 public class Controller {
 
@@ -37,7 +37,7 @@ public class Controller {
         Player player = Player.getRandomPlayer();
 
         do {
-            boardHistory = takeTurn(player, boardHistory, Mode.COMPETE, bigData);
+            boardHistory = takeTurn(player, boardHistory, Phase.COMPETE, bigData);
             boardStatus = evaluateBoard(boardHistory);
             if (PRINT_GAMES) boardHistory.printCurrentBoard();
             if (boardStatus.isGameOver()) break;
@@ -49,14 +49,14 @@ public class Controller {
         if (PRINT_GAMES) System.out.println(winner + " wins\n");
     }
 
-    private BoardHistory takeTurn(Player player, BoardHistory boardHistory, Mode mode, BigData bigData) {
+    private BoardHistory takeTurn(Player player, BoardHistory boardHistory, Phase phase, BigData bigData) {
         Board currentBoard = boardHistory.getCurrentBoard();
-        boolean useBigDataToMakeSmartMove = (mode == COMPETE && player == Player.X);
+        boolean useBigDataToMakeSmartMove = (phase == COMPETE && player == Player.X);
         Position position;
         if (useBigDataToMakeSmartMove) {
             position = getAdviceFromBigData(bigData, currentBoard, player);
         } else {
-            position = Position.getRandomEmptyPosition(currentBoard);
+            position = currentBoard.getRandomEmptyPosition();
         }
         Board newBoard = new Board(currentBoard, player, position);
         boardHistory.addBoard(newBoard);
@@ -86,7 +86,7 @@ public class Controller {
         }
 
         if (bestNextPosition == null) {
-            bestNextPosition = Position.getRandomEmptyPosition(currentBoard);
+            bestNextPosition = currentBoard.getRandomEmptyPosition();
         }
 
         return bestNextPosition;

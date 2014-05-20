@@ -1,6 +1,5 @@
 package tictactoe.BigData;
 
-import tictactoe.Config;
 import tictactoe.GameMechanics.Player;
 
 public class WinLossStats {
@@ -34,18 +33,17 @@ public class WinLossStats {
         float xWinPercentage = calculatePercentageOfTotalGames(xWins);
         float oWinPercentage = calculatePercentageOfTotalGames(oWins);
         float tiePercentage = calculatePercentageOfTotalGames(ties);
-
         return "X won " + xWins + " games or " + xWinPercentage + "%\n" +
                 "O won " + oWins + " games or " + oWinPercentage + "%\n" +
                 "there were " + ties + " ties or " + tiePercentage + "%";
     }
 
     private float calculatePercentageOfTotalGames(long numWins) {
-        return (float)numWins / Config.NUM_COMPETITION_GAMES * 100;
+        return (float)numWins / (xWins + oWins + ties) * 100;
     }
 
     @Override
     public String toString() {
-        return xWins + ", " + oWins + ", " + ties;
+        return "X wins " + xWins + ", O wins " + oWins + ", ties " + ties;
     }
 }

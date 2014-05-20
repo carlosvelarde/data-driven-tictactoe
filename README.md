@@ -57,4 +57,5 @@ notes
 * The project is Mavenized, even though I didn't end up using any dependencies or other Maven features.
 * I haven't included any unit tests, although if this were production code I'd probably have more LOC 
   for unit tests than LOC for actual code.
+* Code formatting is entirely according to IntelliJ's default Java formatting standards.
 

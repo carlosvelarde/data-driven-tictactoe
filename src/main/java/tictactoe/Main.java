@@ -17,12 +17,12 @@ public class Main {
             controller.learnTicTacToe(bigData, learningStats);
         }
         if (PRINT_BIG_DATA) System.out.println(bigData);
-        System.out.println(learningStats);
+        System.out.println("Learning Phase\n" + learningStats.getWinPercentages() + "\n");
 
         WinLossStats competitionStats = new WinLossStats();
         for (int i = 0; i < NUM_COMPETITION_GAMES; i++) {
             controller.playTicTacToe(bigData, competitionStats);
         }
-        System.out.println(competitionStats.getWinPercentages());
+        System.out.println("Competition Phase\n" + competitionStats.getWinPercentages());
     }
 }

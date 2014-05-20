@@ -26,6 +26,6 @@ public class Option {
 
     @Override
     public String toString() {
-        return board.toString() + " produces " + winLossStats.toString();
+        return board.toString() + " results in " + winLossStats.toString();
     }
 }
