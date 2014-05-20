@@ -31,24 +31,6 @@ public class Controller {
         bigData.addResult(boardHistory, winner);
     }
 
-    public void playTicTacToe(BigData bigData, WinLossStats winLossStats) {
-        BoardHistory boardHistory = new BoardHistory();
-        BoardStatus boardStatus;
-        Player player = Player.getRandomPlayer();
-
-        do {
-            boardHistory = takeTurn(player, boardHistory, Phase.COMPETE, bigData);
-            boardStatus = evaluateBoard(boardHistory);
-            if (PRINT_GAMES) boardHistory.printCurrentBoard();
-            if (boardStatus.isGameOver()) break;
-            player = Player.getOtherPlayer(player);
-        } while (true);
-
-        Player winner = boardStatus.getWinner();
-        winLossStats.registerWinner(winner);
-        if (PRINT_GAMES) System.out.println(winner + " wins\n");
-    }
-
     private BoardHistory takeTurn(Player player, BoardHistory boardHistory, Phase phase, BigData bigData) {
         Board currentBoard = boardHistory.getCurrentBoard();
         boolean useBigDataToMakeSmartMove = (phase == COMPETE && player == Player.X);
@@ -61,6 +43,21 @@ public class Controller {
         Board newBoard = new Board(currentBoard, player, position);
         boardHistory.addBoard(newBoard);
         return boardHistory;
+    }
+
+    private BoardStatus evaluateBoard(BoardHistory boardHistory) {
+        Board currentBoard = boardHistory.getCurrentBoard();
+        Player winner = currentBoard.findWinner();
+
+        BoardStatus boardStatus = new BoardStatus();
+        boardStatus.setWinner(winner);
+
+        int numBoards = boardHistory.getNumBoards();
+        int numPositions = Position.values().length;
+        boolean boardIsFull = (numBoards == numPositions + 1);
+        boardStatus.setIsFull(boardIsFull);
+
+        return boardStatus;
     }
 
     private Position getAdviceFromBigData(BigData bigData, Board currentBoard, Player player) {
@@ -98,7 +95,7 @@ public class Controller {
         for (Position position : positions) {
             Player playerOnEarlierBoard = earlierBoard.getPlayerAtPosition(position);
             Player playerOnLaterBoard = laterBoard.getPlayerAtPosition(position);
-            if (! playerOnEarlierBoard.equals(playerOnLaterBoard)) {
+            if (!playerOnEarlierBoard.equals(playerOnLaterBoard)) {
                 changedPosition = position;
                 break;
             }
@@ -106,18 +103,21 @@ public class Controller {
         return changedPosition;
     }
 
-    private BoardStatus evaluateBoard(BoardHistory boardHistory) {
-        Board currentBoard = boardHistory.getCurrentBoard();
-        Player winner = currentBoard.findWinner();
+    public void playTicTacToe(BigData bigData, WinLossStats winLossStats) {
+        BoardHistory boardHistory = new BoardHistory();
+        BoardStatus boardStatus;
+        Player player = Player.getRandomPlayer();
 
-        BoardStatus boardStatus = new BoardStatus();
-        boardStatus.setWinner(winner);
+        do {
+            boardHistory = takeTurn(player, boardHistory, Phase.COMPETE, bigData);
+            boardStatus = evaluateBoard(boardHistory);
+            if (PRINT_GAMES) boardHistory.printCurrentBoard();
+            if (boardStatus.isGameOver()) break;
+            player = Player.getOtherPlayer(player);
+        } while (true);
 
-        int numBoards = boardHistory.getNumBoards();
-        int numPositions = Position.values().length;
-        boolean boardIsFull = (numBoards == numPositions + 1);
-        boardStatus.setIsFull(boardIsFull);
-
-        return boardStatus;
+        Player winner = boardStatus.getWinner();
+        winLossStats.registerWinner(winner);
+        if (PRINT_GAMES) System.out.println(winner + " wins\n");
     }
 }

@@ -4,7 +4,7 @@ import java.util.EnumMap;
 import java.util.Map;
 import java.util.Random;
 
-public class Board implements Comparable{
+public class Board implements Comparable {
 
     private static final String COLUMN_SEPARATOR = " ";
     private static final String PRETTY_COLUMN_SEPARATOR = " | ";
@@ -39,29 +39,6 @@ public class Board implements Comparable{
         squares.put(position, player); // make the new move
     }
 
-    @Override
-    public String toString() {
-        Player nwPlayer = squares.get(Position.NW);
-        Player nPlayer = squares.get(Position.N);
-        Player nePlayer = squares.get(Position.NE);
-        Player wPlayer = squares.get(Position.W);
-        Player middlePlayer = squares.get(Position.MIDDLE);
-        Player ePlayer = squares.get(Position.E);
-        Player swPlayer = squares.get(Position.SW);
-        Player sPlayer = squares.get(Position.S);
-        Player sePlayer = squares.get(Position.SE);
-
-        return nwPlayer.getDisplayString() +
-                nPlayer.getDisplayString() +
-                nePlayer.getDisplayString() + COLUMN_SEPARATOR +
-                wPlayer.getDisplayString() +
-                middlePlayer.getDisplayString() +
-                ePlayer.getDisplayString() + COLUMN_SEPARATOR +
-                swPlayer.getDisplayString() +
-                sPlayer.getDisplayString() +
-                sePlayer.getDisplayString();
-    }
-
     public String toPrettyString() {
         Player nwPlayer = squares.get(Position.NW);
         Player nPlayer = squares.get(Position.N);
@@ -82,10 +59,6 @@ public class Board implements Comparable{
                 swPlayer.getDisplayString() + PRETTY_COLUMN_SEPARATOR +
                 sPlayer.getDisplayString() + PRETTY_COLUMN_SEPARATOR +
                 sePlayer.getDisplayString();
-    }
-
-    public Player getPlayerAtPosition(Position position) {
-        return squares.get(position);
     }
 
     public Player findWinner() {
@@ -129,9 +102,8 @@ public class Board implements Comparable{
         return allPositions[randomPositionIndex];
     }
 
-    @Override
-    public boolean equals(Object o) {
-        return (o != null) && this.toString().equals(o.toString());
+    public Player getPlayerAtPosition(Position position) {
+        return squares.get(position);
     }
 
     @Override
@@ -140,8 +112,36 @@ public class Board implements Comparable{
     }
 
     @Override
+    public boolean equals(Object o) {
+        return (o != null) && this.toString().equals(o.toString());
+    }
+
+    @Override
+    public String toString() {
+        Player nwPlayer = squares.get(Position.NW);
+        Player nPlayer = squares.get(Position.N);
+        Player nePlayer = squares.get(Position.NE);
+        Player wPlayer = squares.get(Position.W);
+        Player middlePlayer = squares.get(Position.MIDDLE);
+        Player ePlayer = squares.get(Position.E);
+        Player swPlayer = squares.get(Position.SW);
+        Player sPlayer = squares.get(Position.S);
+        Player sePlayer = squares.get(Position.SE);
+
+        return nwPlayer.getDisplayString() +
+                nPlayer.getDisplayString() +
+                nePlayer.getDisplayString() + COLUMN_SEPARATOR +
+                wPlayer.getDisplayString() +
+                middlePlayer.getDisplayString() +
+                ePlayer.getDisplayString() + COLUMN_SEPARATOR +
+                swPlayer.getDisplayString() +
+                sPlayer.getDisplayString() +
+                sePlayer.getDisplayString();
+    }
+
+    @Override
     public int compareTo(Object o) {
-        if (! (o instanceof Board)) return 0;
+        if (!(o instanceof Board)) return 0;
         String thisAsString = this.toString();
         String otherBoardAsString = o.toString();
 //        return (otherBoardAsString.compareTo(thisAsString)); // most common boards on top

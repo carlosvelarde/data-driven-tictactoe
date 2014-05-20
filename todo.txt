@@ -1,6 +1,4 @@
 * add some unit tests
 * doc like crazy
-* fix visibility keywords
-* format with IntelliJ's default standards
 * refactor long methods
 * round results to 1 decimal place

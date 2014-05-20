@@ -7,18 +7,13 @@ public enum Player {
     O("O"),
     Neither("_");
 
-    private String displayString;
-
     /* initialize Random once as a static field to avoid super fast execution
        resulting in the same millisecond value used for several seeds. */
     private static Random rand = new Random(System.currentTimeMillis());
+    private String displayString;
 
     private Player(String displayString) {
         this.displayString = displayString;
-    }
-
-    public String getDisplayString() {
-        return this.displayString;
     }
 
     public static Player getRandomPlayer() {
@@ -27,5 +22,9 @@ public enum Player {
 
     public static Player getOtherPlayer(Player player) {
         return player.equals(Player.X) ? Player.O : Player.X;
+    }
+
+    public String getDisplayString() {
+        return this.displayString;
     }
 }

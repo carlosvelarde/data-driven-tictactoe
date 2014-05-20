@@ -21,9 +21,9 @@ public class WinLossStats {
 
     public float getGoodness(Player player) {
         if (player == Player.X) {
-            return (float)xWins / (oWins + ties);
+            return (float) xWins / (oWins + ties);
         } else if (player == Player.O) {
-            return (float)oWins / (xWins + ties);
+            return (float) oWins / (xWins + ties);
         } else {
             return -1F;
         }
@@ -39,7 +39,7 @@ public class WinLossStats {
     }
 
     private float calculatePercentageOfTotalGames(long numWins) {
-        return (float)numWins / (xWins + oWins + ties) * 100;
+        return (float) numWins / (xWins + oWins + ties) * 100;
     }
 
     @Override

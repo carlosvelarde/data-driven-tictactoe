@@ -10,18 +10,14 @@ class BoardStatus {
         boardIsFull = false;
     }
 
-    public boolean isBoardFull() {
-        return boardIsFull;
+    public boolean isGameOver() {
+        return (boardIsFull ||
+                getWinner() == Player.X ||
+                getWinner() == Player.O);
     }
 
     public Player getWinner() {
         return winner;
-    }
-
-    public boolean isGameOver() {
-        return (isBoardFull() ||
-                getWinner() == Player.X ||
-                getWinner() == Player.O);
     }
 
     public void setWinner(Player newWinner) {

@@ -12,6 +12,7 @@ public class Main {
         BigData bigData = new BigData();
         Controller controller = new Controller();
 
+        /* Learning Phase */
         WinLossStats learningStats = new WinLossStats();
         for (int i = 0; i < NUM_TRAINING_GAMES; i++) {
             controller.learnTicTacToe(bigData, learningStats);
@@ -19,6 +20,7 @@ public class Main {
         if (PRINT_BIG_DATA) System.out.println(bigData);
         System.out.println("Learning Phase\n" + learningStats.getWinPercentages() + "\n");
 
+        /* Competition Phase */
         WinLossStats competitionStats = new WinLossStats();
         for (int i = 0; i < NUM_COMPETITION_GAMES; i++) {
             controller.playTicTacToe(bigData, competitionStats);
