@@ -6,14 +6,34 @@ import tictactoe.GameMechanics.Player;
 
 import java.util.*;
 
+/**
+ * Data collection and analysis happens here.
+ *
+ * The general strategy is to record every game played during the training phase,
+ * and keep track of which moves tend to lead to victory. Then during the competition
+ * phase, we can ask BigData which move from a particular board setup most often produces
+ * a win, and take that move.
+ */
 public class BigData {
 
+    /* The main data structure for storing all of our data about moves.
+       The Board class represents a board configuration, with Xs and Os
+       on 0 or more squares. The Option class represents a possible next
+       move and success rate associated with making that move. So each Board
+       map to a Set of 0 or more Options.
+
+       During the Competition phase, a player can ask BigData to look at all Options
+       for a given Board, and return the Option that most often leads to a win.
+     */
     private Map<Board, Set<Option>> data;
 
     public BigData() {
         data = new HashMap<>();
     }
 
+    /**
+     * Populate BigData with this method. As each game completes, submit its history of boards and its winner.
+     */
     public void addResult(BoardHistory boardHistory, Player winner) {
         List<Board> allBoardsInSingleGame = boardHistory.getBoards();
         int numBoardsInSingleGame = allBoardsInSingleGame.size();

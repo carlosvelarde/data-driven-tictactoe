@@ -26,13 +26,13 @@ public class BoardHistory {
         return boards.size();
     }
 
-    public Board getCurrentBoard() {
+    public Board getLatestBoard() {
         int numBoards = boards.size();
         return boards.get(numBoards - 1);
     }
 
-    public void printCurrentBoard() {
-        Board currentBoard = getCurrentBoard();
+    public void printLatestBoard() {
+        Board currentBoard = getLatestBoard();
         String prettyPrintedString = currentBoard.toPrettyString();
         System.out.println(prettyPrintedString + "\n");
     }

@@ -20,7 +20,7 @@ public class Controller {
         do {
             boardHistory = takeTurn(player, boardHistory, LEARN, bigData);
             boardStatus = evaluateBoard(boardHistory);
-            if (PRINT_GAMES) boardHistory.printCurrentBoard();
+            if (PRINT_GAMES) boardHistory.printLatestBoard();
             if (boardStatus.isGameOver()) break;
             player = Player.getOtherPlayer(player);
         } while (true);
@@ -32,7 +32,7 @@ public class Controller {
     }
 
     private BoardHistory takeTurn(Player player, BoardHistory boardHistory, Phase phase, BigData bigData) {
-        Board currentBoard = boardHistory.getCurrentBoard();
+        Board currentBoard = boardHistory.getLatestBoard();
         boolean useBigDataToMakeSmartMove = (phase == COMPETE && player == Player.X);
         Position position;
         if (useBigDataToMakeSmartMove) {
@@ -46,7 +46,7 @@ public class Controller {
     }
 
     private BoardStatus evaluateBoard(BoardHistory boardHistory) {
-        Board currentBoard = boardHistory.getCurrentBoard();
+        Board currentBoard = boardHistory.getLatestBoard();
         Player winner = currentBoard.findWinner();
 
         BoardStatus boardStatus = new BoardStatus();
@@ -111,7 +111,7 @@ public class Controller {
         do {
             boardHistory = takeTurn(player, boardHistory, Phase.COMPETE, bigData);
             boardStatus = evaluateBoard(boardHistory);
-            if (PRINT_GAMES) boardHistory.printCurrentBoard();
+            if (PRINT_GAMES) boardHistory.printLatestBoard();
             if (boardStatus.isGameOver()) break;
             player = Player.getOtherPlayer(player);
         } while (true);
