@@ -9,19 +9,21 @@ import static org.testng.Assert.*;
 public class TestOption {
     @Test
     public void TestConstructor() {
+
+        /* exercise the constructor */
         Board emptyBoard = new Board();
         Option option = new Option(emptyBoard);
 
-        WinLossStats winLossStats1InOption = option.getWinLossStats();
-        assertNotNull(winLossStats1InOption);
+        /* getWinLossStats() should return a WinLossStats object */
+        assertNotNull(option.getWinLossStats());
 
-        Board boardInOption = option.getBoard();
-        assertEquals(boardInOption, emptyBoard);
+        /* getBoard() should return the empty board we passed in to the constructor */
+        assertEquals(option.getBoard(), emptyBoard);
 
+        /* registering a winner with register() should change the toString() value of this Option */
+        String optionAsStringBeforeRegisterWinner = option.toString();
         option.registerWinner(Player.O);
-        WinLossStats winLossStats2InOption = option.getWinLossStats();
-        float goodnessBeforeRegisteringWin = winLossStats1InOption.getGoodness(Player.O);
-        float goodnessAfterRegisteringWin = winLossStats2InOption.getGoodness(Player.O);
-        assertTrue(goodnessAfterRegisteringWin > goodnessBeforeRegisteringWin);
+        String optionAsStringAfterRegisterWinner = option.toString();
+        assertNotSame(optionAsStringBeforeRegisterWinner, optionAsStringAfterRegisterWinner);
     }
 }
